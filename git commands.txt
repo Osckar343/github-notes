@@ -1,0 +1,263 @@
+
+////CONFIG GIT///
+
+git config --global user.name "Oscar Mendez" //change your name.
+
+git config --global user.email "oscarandres131@hotmail.com" //change your email.
+
+git config --list //shows a list of your information (including name and email)
+
+////// FIRST STEPS //////////
+
+git init //Starts a git repository in your folder
+
+git add file.txt //Adds a change of the file(s) to the staging
+
+git rm --cached file.txt //remove (rm) a file from the staging
+
+git commit -m "Uploading a commit" 
+
+//if you write "git commit" without a message, you will redirected to a new place and you must  write a message for your commit and then press "ESC + SHIFT + Z(Twice)" 
+//This is a way to save in VIM (ESC + SHIFT + Z(Twice)) 
+
+//////////////// ANALAZING CHANGES OF YOUR PROJECT ///////////////////
+
+git show //shows you all the deep changes of your file (what you added or deleted or changed in a specific line of code)
+
+git log //shows you all the commits and its respective info of all your project (You can exit pressing "q" or "z")
+
+git log file.txt // show all the history of the file changes
+
+git diff <idRecentCommit> <idOldCommit> //This compares specific commics and shows you the deep changes (You can exit pressing "q" or "z")
+
+
+////// BRANCHES (MERGE) /////////
+
+//This is called here in the industry
+
+development //Branch of experiments
+
+hotfix //branch of fixing bugs
+
+////////////////////////////
+
+
+//////////// GETTING BACK IN THE TIME IN OUR REPOSITY//////////
+
+There are two types of git reset: hard and soft. 
+
+$ git reset <idCommit> --hard //THIS DELETE ALL YOUR OLD COMMITS (BE CAREFULLY)
+$ git reset <idCommit> --soft
+
+//You also can get back to a commit without delete, as the command say, you CHECK the commit but you don't edit anyhting.
+
+
+git checkout <idCommit> 
+
+//if you want to checkout only for a specific file, you can write it.
+
+git checkout <idCommit> file.txt
+
+//you can commit in the checkout and bring old files to master (updated commit or last commit in the project)
+
+//If you want to get back to the updated (master) commit, it's like this:
+
+git checkout master.
+
+
+////////////////////// GIT RESET VS GIT RM///////////////////////
+
+
+Git reset y git rm son comandos con utilidades muy diferentes, pero aún así se confunden muy fácilmente.
+
+git rm
+Este comando nos ayuda a eliminar archivos de Git sin eliminar su historial del sistema de versiones. Esto quiere decir que si necesitamos recuperar el archivo solo debemos “viajar en el tiempo” y recuperar el último commit antes de borrar el archivo en cuestión.
+
+Recuerda que git rm no puede usarse así nomás. Debemos usar uno de los flags para indicarle a Git cómo eliminar los archivos que ya no necesitamos en la última versión del proyecto:
+
+git rm --cached: Elimina los archivos del área de Staging y del próximo commit pero los mantiene en nuestro disco duro.
+git rm --force: Elimina los archivos de Git y del disco duro. Git siempre guarda todo, por lo que podemos acceder al registro de la existencia de los archivos, de modo que podremos recuperarlos si es necesario (pero debemos usar comandos más avanzados).
+
+git reset
+Este comando nos ayuda a volver en el tiempo. Pero no como git checkout que nos deja ir, mirar, pasear y volver. Con git reset volvemos al pasado sin la posibilidad de volver al futuro. Borramos la historia y la debemos sobreescribir. No hay vuelta atrás.
+
+Este comando es muy peligroso y debemos usarlo solo en caso de emergencia. Recuerda que debemos usar alguna de estas dos opciones:
+
+Hay dos formas de usar git reset: con el argumento --hard, borrando toda la información que tengamos en el área de staging (y perdiendo todo para siempre). O, un poco más seguro, con el argumento --soft, que mantiene allí los archivos del área de staging para que podamos aplicar nuestros últimos cambios pero desde un commit anterior.
+
+git reset --soft: Borramos todo el historial y los registros de Git pero guardamos los cambios que tengamos en Staging, así podemos aplicar las últimas actualizaciones a un nuevo commit.
+git reset --hard: Borra todo. Todo todito, absolutamente todo. Toda la información de los commits y del área de staging se borra del historial.
+¡Pero todavía falta algo!
+
+git reset HEAD: Este es el comando para sacar archivos del área de Staging. No para borrarlos ni nada de eso, solo para que los últimos cambios de estos archivos no se envíen al último commit, a menos que cambiemos de opinión y los incluyamos de nuevo en staging con git add, por supuesto.
+¿Por qué esto es importante?
+Imagina el siguiente caso:
+
+Hacemos cambios en los archivos de un proyecto para una nueva actualización. Todos los archivos con cambios se mueven al área de staging con el comando git add. Pero te das cuenta de que uno de esos archivos no está listo todavía. Actualizaste el archivo pero ese cambio no debe ir en el próximo commit por ahora.
+
+¿Qué podemos hacer?
+
+Bueno, todos los cambios están en el área de Staging, incluido el archivo con los cambios que no están listos. Esto significa que debemos sacar ese archivo de Staging para poder hacer commit de todos los demás.
+
+¡Al usar git rm lo que haremos será eliminar este archivo completamente de git! Todavía tendremos el historial de cambios de este archivo, con la eliminación del archivo como su última actualización. Recuerda que en este caso no buscábamos eliminar un archivo, solo dejarlo como estaba y actualizarlo después, no en este commit.
+
+En cambio, si usamos git reset HEAD, lo único que haremos será mover estos cambios de Staging a Unstaged. Seguiremos teniendo los últimos cambios del archivo, el repositorio mantendrá el archivo (no con sus últimos cambios pero sí con los últimos en los que hicimos commit) y no habremos perdido nada.
+
+Conclusión: Lo mejor que puedes hacer para salvar tu puesto y evitar un incendio en tu trabajo es conocer muy bien la diferencia y los riesgos de todos los comandos de Git.
+
+
+///////////////////// INTRO TO BRANCHES /////////////////////////////////
+
+//you can create a new brange with:
+
+git brange <brangeName>
+
+//then, you can switch among your branches with checkout
+
+git checkout <brangeName>
+
+git checkout master
+
+///////// FUSION OF BRANGES //////////////////
+
+//It's important to make a merge positioned in the branch you want to merge.
+//Example: If you want to merge "master" and "cabecera", you need to be in "master" because it's your main branch.
+
+///// RESOLUTION OF CONFLICTS ///////
+
+//This happens because the same line of code was edited and you are trying to merge them.
+//In this case you will need to decide if your change is the definitive or the other person's change.
+
+//YOU HAVE TO CUMMINICATE ABOUT THIS CHANGES.
+
+
+//////////// CHANGES ON GITHUB FROM MASTER TO MAIN ////////////////////
+
+El escritor Argentino Julio Cortázar afirma que las palabras tienen color y peso. Por otro lado, los sinónimos existen por definición, pero no expresan lo mismo. Feo no es lo mismo que desagradable, ni aromático es lo mismo que oloroso.
+
+Por lo anterior podemos afirmar que los sinónimos no expresan lo mismo, no tienen el mismo “color” ni el mismo “peso”.
+
+Sí, esta lectura es parte del curso profesional de Git & GitHub. Quédate conmigo.
+
+Desde el 1 de octubre de 2020 GitHub cambió el nombre de la rama principal: ya no es “master” -como aprenderás en el curso- sino main.
+
+Este derivado de una profunda reflexión ocasionada por el movimiento #BlackLivesMatter.
+
+La industria de la tecnología lleva muchos años usando términos como master, slave, blacklist o whitelist y esperamos pronto puedan ir desapareciendo.
+
+Y sí, las palabras importan.
+
+Por lo que de aquí en adelante cada vez que escuches a Freddy mencionar “master” debes saber que hace referencia a “main”
+
+
+/////////// USING GITHUB (REMOTE) /////////////////
+
+git remote add origin <yourLink>
+
+git remote -v //you can see your origin where you can fetch and push
+
+//This is a special case, but in case you have it, probably you will want to PUSH your commits to a remote repository.
+//You can see like there are two differente "histories". Your local project is a history, and the online project on github is other "History"
+//In that case you have to use "--allow-unrelated-histories" on your push.
+
+git push origin main --allow-unrelated-histories
+
+/////////////// PUBLIC KEYS AND PRIVATE KEYS //////////////////
+
+///////// ALIAS ///////////////
+
+
+git log --graph --decorate --oneline
+
+//if you have a huge command, you can make alias in this way:
+
+alias arbolito="git log --graph --decorate --oneline"
+
+///////////////// TAGS ////////////////////////
+
+Crear un nuevo tag y asignarlo a un commit: git tag -a nombre-del-tag id-del-commit.
+Borrar un tag en el repositorio local: git tag -d nombre-del-tag.
+Listar los tags de nuestro repositorio local: git tag o git show-ref --tags.
+Publicar un tag en el repositorio remoto: git push origin --tags.
+Borrar un tag del repositorio remoto: git tag -d nombre-del-tag y git push origin :refs/tags/nombre-de
+
+
+///// PULL REQUEST //////
+
+Es una funcionalidad de github (en gitlab llamada merge request y en bitbucket push request), en la que un colaborador pide que revisen sus cambios antes de hacer merge a una rama, normalmente master.
+
+Al hacer un pull request se genera una conversación que pueden seguir los demás usuarios del repositorio, así como autorizar y rechazar los cambios.
+
+El flujo del pull request es el siguiente
+
+Se trabaja en una rama paralela los cambios que se desean (git checkout -b <rama>)
+Se hace un commit a la rama (git commit -am '<Comentario>')
+Se suben al remoto los cambios (git push origin <rama>)
+En GitHub se hace el pull request comparando la rama master con la rama del fix.
+Uno, o varios colaboradores revisan que el código sea correcto y dan feedback (en el chat del pull request)
+El colaborador hace los cambios que desea en la rama y lo vuelve a subir al remoto (automáticamente jala la historia de los cambios que se hagan en la rama, en remoto)
+Se aceptan los cambios en GitHub
+Se hace merge a master desde GitHub
+Importante: Cuando se modifica una rama, también se modifica el pull request.
+
+/////////// GIT STASH /////////////////////
+
+If you made a change on a file but you don't want to do a commit o send it to the staging, you can save the file temporaly in STASH
+
+//1. doing changes to a file.
+//2. aply stash 
+
+git stash 
+
+//you can check your files with
+
+git stash list.
+
+//if you want to save that changes to another branch, you can use:
+
+git stash branch <nameOfTheBranch>
+
+//if you only want to delete your changes, simply use
+
+git stash drop
+
+//this is a super power tool because you can made changes and experiment with your project but if you don't want to save it, you can stash and your project will be intacted
+
+///////////// GIT CLEAN //////////////////
+
+//git is very smart, he knows when there are duplicated files, like logs.
+//in that case you can use git CLEAN
+
+git clean --dry-run  //WOULD... this is like a simulation, but it doesn't delete your files
+
+git clean -f //delete your files
+
+
+/////////////// GIT CHERRY-PICK (OLD COMMITS TO HEAD OF A BRANCH) /////////////////
+
+//you can join a commit from other branch to other brange with git cherry-PICK
+
+git cherry-pick <idCommit>
+
+/////////////// RECONSTRUYENDO COMMITS EN GIT CON AMMEND ////////////
+
+//THIS IS DANGEROUS, ONLY EMERGENCIES.
+
+//If you make a HUGE HUGE HUGE mistake, literlly like merge somethign wrong, or deleted important files or strange things that everything is broken, you can use "reflog and reset"
+
+git reflog //shows you all your MOVEMENTS, localize  commit when your project was without mistakes.
+
+//then
+
+git reset --HARD <reflogHash>
+
+///////// SEARCH FILES AND COMMITS /////
+
+A medida que nuestro proyecto se hace grande vamos a querer buscar ciertas cosas.
+
+Por ejemplo: ¿cuántas veces en nuestro proyecto utilizamos la palabra color?
+
+
+Con git grep -n color nos saldrá un output el cual nos dirá en qué línea está lo que estamos buscando.
+Con git grep -c color nos saldrá un output el cual nos dirá cuántas veces se repite esa palabra y en qué archivo.
+Si queremos buscar cuántas veces utilizamos un atributo de HTML lo hacemos con git grep -c "<p>".
